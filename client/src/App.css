@@ -1,0 +1,200 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:100,300,400|Playfair+Display:400,700,400italic|Libre+Baskerville:400,700,400italic|Muli:300,400|Open+Sans:400,300,700|Oswald:400,700|Raleway:400,100,300,700|Montserrat:400,700|Merriweather:400,300,300italic,400italic,700|Bree+Serif|Vollkorn:400italic,400,700|Abril+Fatface|Cardo:400,400italic);
+
+body {
+    /*background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);*/
+    background: linear-gradient(90deg, #485563 10%, #29323c 90%);
+    background-size: 400% 400%;
+    animation: gradient 30s ease infinite;
+
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+form {
+    max-width: 500px;
+    margin: 0 auto;
+    margin-top: 40px;
+    background: #ffffff;
+    border: 0 none;
+    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+    padding: 0 40px 40px;
+}
+
+
+h1 {
+    font-size: 80px;
+    line-height: 0.85;
+    margin: 0;
+    padding: 0;
+    color: #FFFFFF;
+    font-family: 'Bree Serif';
+    font-weight: 400;
+}
+
+h2 {
+    border-bottom:1px solid #090909;
+}
+
+
+p {
+    font-size: 12px;
+    color: #bf1650;
+}
+
+p::before {
+    display: inline;
+    content: "⚠ ";
+}
+
+input {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid #000000;
+    padding: 10px 15px;
+    font-size: 14px;
+    text-align: center;
+    font-family: Monaco;
+}
+
+label {
+    line-height: 2;
+    text-align: center;
+    display: block;
+    color: #000000;
+    font-size: 14px;
+    font-weight: 300;
+    font-family: Copperplate;
+}
+
+input[type="submit"] {
+    background: #ec5990;
+    color: white;
+    text-transform: uppercase;
+    border: none;
+    margin-top: 20px;
+    padding: 20px;
+    font-size: 16px;
+    font-weight: 100;
+    letter-spacing: 10px;
+}
+
+input[type="submit"]:hover {
+    background: #bf1650;
+}
+
+input[type="submit"]:active {
+    transition: 0.3s all;
+    transform: translateY(3px);
+    border: 1px solid transparent;
+    opacity: 0.8;
+}
+
+input:disabled {
+    opacity: 0.4;
+}
+
+input[type="submit"] {
+    -webkit-appearance: none;
+}
+
+.App {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+
+pre {
+    color: white;
+}
+
+hr {
+    margin-top: 30px;
+}
+
+.mega {
+    font-size: 3rem; /* 72 / 18 = 4 */
+    text-align: center;
+}
+
+
+.bold{font-weight: 700;}
+
+.color-emphasis-1{color: #FF4056}
+
+.giga {
+    font-size: 100px; /* 90 / 18 = 5 */
+    margin-bottom: 0.33rem;
+}
+
+.bree-serif{font-family: 'Bree Serif'}
+.regular{font-weight: 400;}
+.double-header-line:before, .double-header-line:after{
+    content: "";
+    display: block;
+    position: absolute;
+    width:7rem;
+    background-color: transparent;
+    height: 4px;
+    border-top: 1px solid #fff;
+    border-bottom:1px solid #fff;
+    top: 50%;
+    margin-bottom: -4px;
+}
+.double-header-line:before{
+    left: -7.5rem;
+}
+.double-header-line:after{
+    right: -7.5rem;
+}
+
+.wrapper{
+    max-width: 53.33rem;
+    margin: 0 auto;
+    position: relative;
+    z-index: 10;
+    transform: translateY(-50%);
+    top:50%;
+    text-align: center;
+}
+
+
+.container {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    align-items: baseline;
+}
+.title {
+    align-self: center;
+    padding: 2rem;
+    max-width: 960px;
+    text-align: center
+}
+
+.ls-large {
+    letter-spacing: 8px;
+}
+
+.oswald {
+    font-family: 'Oswald';
+}
+
+.delta {
+    font-size: 1.3333333333333333rem;
+    margin-bottom: 1.2375rem;
+}
