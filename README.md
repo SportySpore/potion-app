@@ -4,8 +4,6 @@ A Full-stack MERN Project involving forms
 
 ## Tech Stack
 
----
-
 MongoDB (Database)
 
 ExpressJS (Backend)
@@ -18,8 +16,6 @@ Heroku (Deployment)
 
 ## Database
 
----
-
 MongoDB was used to store data inserted by POST /api/magic
 
 All data was stored in a single schema `Transactions`
@@ -30,16 +26,16 @@ All data was stored in a single schema `Transactions`
 	"lastName": "string", 
 	"email": "string", 
 	"address": {
-			"street1": "string", 
-			"street2": "string", 
-			"city": "string", 
-			"state": "string", 
-			"zip": "string",
+		"street1": "string", 
+		"street2": "string", 
+		"city": "string", 
+		"state": "string", 
+		"zip": "string",
 	},
 	"phone": "string", 
 	"payment": {
-			"ccNum": "string",
-			"exp": "string", },
+		"ccNum": "string",
+		"exp": "string", },
 	"quantity": "number", 
 	"total": "string", 
 	"orderDate": "date", 
@@ -51,7 +47,6 @@ Being a NoSQL Database, it can store data in JSON Object Format and can store ne
 
 ## REST APIs
 
----
 
 GET /api/magic/uid - Retrieves a transaction from the database with the given uid. If no transaction is found, returns a `404`.
 
@@ -63,7 +58,6 @@ DELETE /api/magic/uid - Deletes a specific transaction with the given uid. If no
 
 ## Testing
 
----
 
 **Backend Routers:**
 
@@ -76,7 +70,5 @@ ChaiJS - an assertion library for Node.js
 Mockgoose - an in memory database mock that allows testing applications that rely on MongoDB
 
 ## Deployment
-
----
 
 Heroku was used to deploy the project. It offers ready-to-use environments that allows for fast code deployments, making it a suitable platform for smaller projects.
