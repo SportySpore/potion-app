@@ -5,12 +5,12 @@ export const CustomerFormSection = ({ register, errors }) => {
         <div className="customerContainer">
             <div>
                 <label>First name</label>
-                <input type="text" name="firstName" ref={register({ required: true })}/>
+                <input type="text" name="firstName" ref={register({ required: true, pattern:"[a-zA-Z]*"})}/>
                 {errors.firstName && <p>Please enter a valid First Name</p>}
             </div>
             <div>
                 <label>Last name</label>
-                <input type="text" name="lastName" ref={register({ required: true })}/>
+                <input type="text" name="lastName" ref={register({ required: true, pattern:"[a-zA-Z]*"})}/>
                 {errors.lastName && <p>Please enter a valid Last Name</p>}
             </div>
             <div>
@@ -22,8 +22,8 @@ export const CustomerFormSection = ({ register, errors }) => {
                 {errors.email && <p>Please enter a valid Email Address</p>}
             </div>
             <div>
-                <label>Phone</label>
-                <input type="tel" name="phone" ref={register({ required: true, maxLength: 12, minLength: 8 })}/>
+                <label>Phone Number</label>
+                <input type="tel" name="phone" placeholder="123-456-7890" ref={register({required: true, pattern: "[0-9]{3}-[0-9]{2}-[0-9]{3"})}/>
                 {errors.phone && <p>Please enter a valid Phone Number</p>}
             </div>
         </div>

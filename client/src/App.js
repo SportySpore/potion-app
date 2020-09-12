@@ -4,7 +4,6 @@ import { Title } from './components/title';
 import { ToastProvider } from 'react-toast-notifications'
 import './App.css';
 
-ToastProvider.defaultProps.placement = 'top-center';
 
 function App() {
   return (
