@@ -23,7 +23,7 @@ export const CustomerFormSection = ({ register, errors }) => {
             </div>
             <div>
                 <label>Phone Number</label>
-                <input type="tel" name="phone" placeholder="123-456-7890" ref={register({required: true, pattern: "[0-9]{3}-[0-9]{2}-[0-9]{3"})}/>
+                <input type="tel" name="phone" placeholder="123-456-7890" ref={register({required: true, pattern: /[0-9]{3}-[0-9]{3}-[0-9]{4}/ })}/>
                 {errors.phone && <p>Please enter a valid Phone Number</p>}
             </div>
         </div>

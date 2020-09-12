@@ -38,7 +38,8 @@ const TransactionSchema = new mongoose.Schema({
     },
     phone: {
         type: String,
-        required: [true, 'Please add a Phone Number']
+        required: [true, 'Please add a Phone Number'].toString(),
+        match: [/[0-9]{3}-[0-9]{3}-[0-9]{4}/, 'Phone number is not in the valid format ###-###-####']
     },
     payment: {
         ccNum: {
@@ -52,8 +53,8 @@ const TransactionSchema = new mongoose.Schema({
     },
     quantity: {
         type: Number,
-        min: 1,
-        max: 3,
+        min: [1, 'Quantity is less than the minimum allowed value (1)'],
+        max: [3, 'Quantity is more than the maximum allowed value (3)'],
         required: [true, 'Please add a Quantity between 1 - 3']
     },
     total: {

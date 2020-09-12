@@ -16,14 +16,13 @@ exports.getTransaction = async (req, res, next) => {
 
 exports.createTransaction = async (req, res, next) => {
     try {
-        const duplicates = await getDuplicates(req.body);
+        const duplicates = await checkDuplicates(req.body);
 
         if (duplicates.length > 0) {
-            console.log(duplicates);
-            return res.status(400).json({ success: false, error: 'A customer with the same information already exists'});
+            return res.status(400).json({ success: false, error: duplicates});
         }
 
-        const newTransaction = await Transaction.create(req.body).catch((err) => {throw (err)});
+        const newTransaction = await Transaction.create(req.body);
 
         return res.status(201).json({ success: true, id: newTransaction.id });
     } catch (err) {
@@ -72,17 +71,35 @@ async function getTransactionById(id) {
     return await Transaction.findById(id).catch(() => null);
 }
 
-async function getDuplicates(body) {
+async function checkDuplicates(body) {
     if (!body) {
         return [];
     }
-    return await Transaction.find({
+    const transactions = await Transaction.find({
         $or: [
             {email: body.email},
             {phone: body.phone},
             {firstName: body.firstName, lastName: body.lastName},
-
+            {'payment.ccNum': body.payment ? body.payment.ccNum : ''}
         ]
     });
+
+    const errors = [];
+    transactions.forEach((t) => {
+        if (t.email === body.email) {
+            errors.push('A customer with the same email already exists!');
+        }
+        if (t.phone === body.phone) {
+            errors.push('A customer with the same phone number already exists!');
+        }
+        if (t.firstName === body.firstName && t.lastName === body.lastName) {
+            errors.push('A customer with the same name already exists!');
+        }
+        if (body.payment && t.payment.ccNum === body.payment.ccNum) {
+            errors.push('A customer with the same credit card information already exists!')
+        }
+    });
+
+    return errors;
 }
 
