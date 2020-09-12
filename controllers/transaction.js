@@ -19,6 +19,7 @@ exports.createTransaction = async (req, res, next) => {
         const duplicates = await getDuplicates(req.body);
 
         if (duplicates.length > 0) {
+            console.log(duplicates);
             return res.status(400).json({ success: false, error: 'A customer with the same information already exists'});
         }
 
@@ -78,9 +79,9 @@ async function getDuplicates(body) {
     return await Transaction.find({
         $or: [
             {email: body.email},
+            {phone: body.phone},
             {firstName: body.firstName, lastName: body.lastName},
-            {ccNum: body.ccNum, exp: body.exp},
-            {phone: body.phone}
+
         ]
     });
 }

@@ -32,7 +32,8 @@ const TransactionSchema = new mongoose.Schema({
         },
         zip: {
             type: String,
-            required: [true, 'Please add a Zip Code']
+            required: [true, 'Please add a Zip Code'],
+            maxLength: 5
         }
     },
     phone: {
@@ -42,8 +43,7 @@ const TransactionSchema = new mongoose.Schema({
     payment: {
         ccNum: {
             type: String,
-            required: [true, 'Please add a 16-digit Credit Card Number'],
-            length: 16
+            required: [true, 'Please add a Credit Card Number']
         },
         exp: {
             type: String,

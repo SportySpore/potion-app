@@ -10,11 +10,11 @@ body {
 
 form {
     max-width: 500px;
-    margin: 40px auto 0;
+    margin: 0px auto 0;
     background: #ffffff;
     border: 0 none;
     box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
-    padding: 0 40px 40px;
+    padding: 0px 40px 0px;
 }
 
 h1 {
@@ -68,7 +68,7 @@ input[type="submit"] {
     color: white;
     text-transform: uppercase;
     border: none;
-    margin-top: 20px;
+    margin-bottom: 20px;
     padding: 20px;
     font-size: 16px;
     font-weight: 100;
