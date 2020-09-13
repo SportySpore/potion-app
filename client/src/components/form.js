@@ -27,14 +27,15 @@ export const Form = () => {
 
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <h2 className="mega">Order Form</h2>
-            <OrderFormSection register={register} setValue={setValue} errors={errors}/>
-            <CustomerFormSection register={register} errors={errors}/>
-            <AddressFormSection register={register} errors={errors}/>
-            <CCFormSection register={register} errors={errors}/>
-            <input type="Submit" />
-        </form>
+        <div className='section1-col2'>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <OrderFormSection register={register} setValue={setValue} errors={errors}/>
+                <CustomerFormSection register={register} errors={errors}/>
+                <AddressFormSection register={register} errors={errors}/>
+                <CCFormSection register={register} errors={errors}/>
+                <input type="Submit" />
+            </form>
+        </div>
     );
 }
 
