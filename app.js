@@ -1,21 +1,25 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const conn = require('./config/db');
-
-conn.connect();
-
-const magic = require('./routes/magic');
+const {NODE_ENV} = require('./config');
 
 const app = express();
 
+// JSON Middleware
 app.use(express.json());
 
+// CORS Middleware
 app.use(cors());
 
+// Routers
+const magic = require('./routes/magic');
+
+// Use Routes
 app.use('/api/magic', magic);
 
-if (process.env.NODE_ENV === 'production') {
+// Serve STATIC assets if in PROD
+if (NODE_ENV === 'production') {
+    // Set static folder
     app.use(express.static('client/build'));
 
     app.get('*', (req, res) => {

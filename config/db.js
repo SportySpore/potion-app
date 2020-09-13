@@ -1,13 +1,16 @@
 const mongoose = require('mongoose');
+const { NODE_ENV, MONGO_URI } = require('./index.js');
+
 
 const connect = async () => {
     try {
-        if (process.env.NODE_ENV === 'test') {
-            const Mockgoose = require('mockgoose').Mockgoose;
+        // Mock DB for Testing Environment
+        if (NODE_ENV === 'test') {
+            const { Mockgoose } = require('mockgoose');
             const mockgoose = new Mockgoose(mongoose);
-            mockgoose.prepareStorage().then(() => mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }));
+            mockgoose.prepareStorage().then(() => mongoose.connect(MONGO_URI, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }));
         } else {
-            const conn = await mongoose.connect(process.env.MONGO_URI, {
+            const conn = await mongoose.connect(MONGO_URI, {
                 useNewUrlParser: true,
                 useCreateIndex: true,
                 useUnifiedTopology: true
@@ -16,7 +19,6 @@ const connect = async () => {
             console.log(`MongoDB Connected: ${conn.connection.host}`);
         }
     } catch (err) {
-        console.log('cant connect');
         console.log(`Error: ${err.message}`);
         process.exit(1);
     }

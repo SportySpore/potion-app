@@ -1,32 +1,29 @@
 process.env.NODE_ENV = 'test';
+process.env.PORT = '5000';
 
-const dotenv = require('dotenv');
-dotenv.config({path: '../config/config.env'});
 const {assert} = require('chai');
 const request = require('supertest');
 const app = require('../app.js');
-const conn = require('../config/db');
+const db = require('../config/db');
 const testData = require('./transactionsData');
 
-describe('GET /api/magic', () => {
+describe('/api/magic', () => {
     let transactionIds = [];
 
     before(async () => {
-        await conn.connect().catch((err) => process.exit(1));
+        await db.connect().catch((err) => process.exit(1));
+        console.log('Connected to Mock DB');
     })
 
     after(async () => {
-        await conn.close().catch((err) => process.exit(1));
+        await db.close().catch((err) => process.exit(1));
+        console.log('Closed Mock DB');
     })
-
+    //
     it('should create a new transaction', async () => {
-        try {
-            const res = await request(app).post('/api/magic/').send(testData[0]).catch((err) => assert.fail());
-            assert.equal(res.body.success, true);
-            transactionIds.push(res.body.id);
-        } catch (err) {
-            assert.fail();
-        }
+        const res = await request(app).post('/api/magic/').send(testData[0]).catch((err) => assert.fail(err));
+        assert.equal(res.body.success, true);
+        transactionIds.push(res.body.id);
     });
 
     it('should not create a duplicate transaction', async () => {
