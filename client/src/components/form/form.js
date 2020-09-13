@@ -1,11 +1,12 @@
 import React from "react";
 import { useToasts } from 'react-toast-notifications'
-import { postMagic }  from "../services/ApiService";
+import { postMagic }  from "../../services/ApiService";
 import { useForm } from "react-hook-form";
 import { CustomerFormSection } from "./customerFormSection";
 import { AddressFormSection } from "./addressFormSection";
 import { OrderFormSection } from "./orderFormSection";
 import { CCFormSection } from "./ccFormSection";
+import './form.css';
 
 export const Form = () => {
     const { register, errors, handleSubmit, setValue } = useForm({mode: 'onBlur'});
@@ -14,7 +15,6 @@ export const Form = () => {
     const onSubmit = async (data, e) => {
         console.log(data);
         const res = await postMagic(data);
-        //const res = {success: false, error: ["Here's an Error!", "Another One!"]};
         if (res.success) {
             addToast('Saved Successfully', { appearance: 'success' })
             e.target.reset();
@@ -25,15 +25,14 @@ export const Form = () => {
         }
     };
 
-
     return (
-        <div className='section1-col2'>
+        <div className='section-right'>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <OrderFormSection register={register} setValue={setValue} errors={errors}/>
                 <CustomerFormSection register={register} errors={errors}/>
                 <AddressFormSection register={register} errors={errors}/>
                 <CCFormSection register={register} errors={errors}/>
-                <input type="Submit" />
+                <input type="Submit" value='ORDER'/>
             </form>
         </div>
     );

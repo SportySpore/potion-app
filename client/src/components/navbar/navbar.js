@@ -1,4 +1,6 @@
 import React from "react";
+import logo from '../../img/logo.png';
+import './navbar.css';
 
 
 export const Navbar = () => {
@@ -6,7 +8,7 @@ export const Navbar = () => {
         <nav className='nav'>
             <div className='container nav-inner'>
                 <a href="#">
-                    <img src={'http://potion-app.herokuapp.com/assets/img/logo.svg'} alt={'oof'}/>
+                    <img src={logo} alt={'oof'}/>
                 </a>
             </div>
         </nav>

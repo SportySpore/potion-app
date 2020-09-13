@@ -1,9 +1,8 @@
 import React from 'react';
-import { Form }  from './components/form';
-import { Title } from './components/title';
 import { ToastProvider } from 'react-toast-notifications'
 import './App.css';
-import { Navbar } from './components/navbar';
+import { Navbar } from './components/navbar/navbar';
+import { MainSection } from './components/main/mainSection';
 
 
 function App() {
@@ -11,12 +10,7 @@ function App() {
       <div className='main-wrapper'>
           <Navbar/>
           <ToastProvider>
-              <section className='container section1'>
-                  <div className='row'>
-                    <Title/>
-                    <Form/>
-                  </div>
-              </section>
+              <MainSection/>
           </ToastProvider>
       </div>
   );
