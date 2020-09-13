@@ -18,7 +18,7 @@ export const Form = () => {
         if (res.success) {
             addToast('Saved Successfully', { appearance: 'success' })
             e.target.reset();
-        } else {
+        } else if (res.error) {
             res.error.forEach((err) => {
                 addToast(err, { appearance: 'error' });
             });

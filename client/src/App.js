@@ -4,15 +4,17 @@ import './App.css';
 import { Navbar } from './components/navbar/navbar';
 import { MainSection } from './components/main/mainSection';
 
+ToastProvider.defaultProps.placement = 'top-right';
+
 
 function App() {
   return (
-      <div className='main-wrapper'>
-          <Navbar/>
-          <ToastProvider>
+      <ToastProvider>
+          <div className='main-wrapper'>
+              <Navbar/>
               <MainSection/>
-          </ToastProvider>
-      </div>
+          </div>
+      </ToastProvider>
   );
 }
 
