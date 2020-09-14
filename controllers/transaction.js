@@ -1,105 +1,65 @@
 const Transaction = require('../models/Transaction');
+const helper = require('./transactionHelper');
 
 exports.getTransaction = async (req, res, next) => {
     try {
-        const transaction = await getTransactionById(req.params.uid);
+        const transaction = await helper.getTransactionById(req.params.uid);
 
         if (!transaction) {
-            return res.status(404).json({ success: false, error: 'resource not found' });
+            helper.handleNotFound(res);
         }
 
-        return res.status(200).json(transaction);
+        return helper.handleSuccess(transaction, res);
     } catch (err) {
-        return res.status(500).json({ success: false, error: 'Server Error' });
+       helper.handleThrownErrors(err, res);
     }
-}
+};
 
 exports.createTransaction = async (req, res, next) => {
     try {
-        const duplicates = await checkDuplicates(req.body);
+        const duplicates = await helper.checkDuplicates(req.body);
 
         if (duplicates.length > 0) {
-            return res.status(400).json({ success: false, error: duplicates});
+            return res.status(400).json({success: false, error: duplicates});
         }
 
         const newTransaction = await Transaction.create(req.body);
 
-        return res.status(201).json({ success: true, id: newTransaction.id });
+        return helper.handleSuccess({id: newTransaction.id}, res);
     } catch (err) {
-        if (err.name === 'ValidationError') {
-            const messages = Object.values(err.errors).map(val => val.message);
-            return res.status(400).json({ success: false, error: messages});
-        }
-
-        return res.status(500).json({ success: false, error: err });
+        helper.handleThrownErrors(err, res);
     }
-}
+};
 
 exports.updateTransaction = async (req, res, next) => {
     try {
-        const transaction = await getTransactionById(req.body.id);
+        const transaction = await helper.getTransactionById(req.body.id);
 
         if (!transaction) {
-            return res.status(404).json({ success: false, error: 'resource not found' });
+           helper.handleNotFound(res);
         }
 
-        await transaction.updateOne(req.body);
+        await transaction.updateOne(req.body, {runValidators: true});
 
-        return res.status(200).json({ success: true, message: 'resource updated successfully' });
+        helper.handleSuccess('resource updated successfully');
     } catch (err) {
-        return res.status(500).json({ success: false, error: 'Server Error' });
+        helper.handleThrownErrors(err, res);
     }
-}
+};
 
 exports.deleteTransaction = async (req, res, next) => {
     try {
-        const transaction = await getTransactionById(req.params.uid);
+        const transaction = await helper.getTransactionById(req.params.uid);
 
         if (!transaction) {
-            return res.status(404).json({ success: false, error: 'resource not found' });
+            helper.handleNotFound(res);
         }
 
         await transaction.remove();
 
-        return res.status(200).json({ success: true, message: 'resource deleted successfully' });
+        helper.handleSuccess('resource deleted successfully');
     } catch (err) {
-        return res.status(500).json({ success: false, error: 'Server Error' });
+        helper.handleThrownErrors(err, res);
     }
-}
-
-async function getTransactionById(id) {
-    return await Transaction.findById(id).catch(() => null);
-}
-
-async function checkDuplicates(body) {
-    if (!body) {
-        return [];
-    }
-    const transactions = await Transaction.find({
-        $or: [
-            {email: body.email},
-            {phone: body.phone},
-            {firstName: body.firstName, lastName: body.lastName},
-            {'payment.ccNum': body.payment ? body.payment.ccNum : ''}
-        ]
-    });
-
-    const errors = [];
-    transactions.forEach((t) => {
-        if (t.email === body.email) {
-            errors.push('A customer with the same email already exists!');
-        }
-        if (t.phone === body.phone) {
-            errors.push('A customer with the same phone number already exists!');
-        }
-        if (t.firstName === body.firstName && t.lastName === body.lastName) {
-            errors.push('A customer with the same name already exists!');
-        }
-        if (body.payment && t.payment.ccNum === body.payment.ccNum) {
-            errors.push('A customer with the same credit card information already exists!')
-        }
-    });
-
-    return errors;
-}
+};
 

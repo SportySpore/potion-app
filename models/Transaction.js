@@ -14,7 +14,7 @@ const TransactionSchema = new mongoose.Schema({
         required: [true, 'Please add an Email Address'],
         trim: true,
         lowercase: true,
-        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address'],
+        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Email Address in not in a valid format'],
     },
     address: {
         street1: {
@@ -38,7 +38,7 @@ const TransactionSchema = new mongoose.Schema({
     },
     phone: {
         type: String,
-        required: [true, 'Please add a Phone Number'].toString(),
+        required: [true, 'Please add a Phone Number'],
         match: [/[0-9]{3}-[0-9]{3}-[0-9]{4}/, 'Phone number is not in the valid format ###-###-####']
     },
     payment: {
@@ -48,7 +48,8 @@ const TransactionSchema = new mongoose.Schema({
         },
         exp: {
             type: String,
-            required: [true, 'Please add an Expiration Date in MM/YY format']
+            required: [true, 'Please add an Expiration Date in MM/YY format'],
+            match: [/(?:0[1-9]|1[0-2])\/(?:[0-2][0-9]|3[0-1])/, 'Expiration Date is not in the valid format MM/YY']
         },
     },
     quantity: {
