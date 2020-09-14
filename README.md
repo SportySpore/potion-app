@@ -205,7 +205,7 @@ Being a NoSQL Database, it can store data in JSON Object Format and can store ne
     ```json
     {
         "success": "false",
-        "error": ["Please add a {missingField}"] // array of all missing fields
+        "error": ["Please add a {missingField}"]
     }
     ```
 
@@ -276,7 +276,7 @@ Being a NoSQL Database, it can store data in JSON Object Format and can store ne
 
     ```json
     {
-        "success": true",
+        "success": true,
         "message": "resource successfully deleted"
     }
     ```
@@ -285,7 +285,7 @@ Being a NoSQL Database, it can store data in JSON Object Format and can store ne
 
     ```json
     {
-        "success": false",
+        "success": false,
         "error": "resource not found"
     }
     ```
