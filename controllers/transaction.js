@@ -41,7 +41,7 @@ exports.updateTransaction = async (req, res, next) => {
 
         await transaction.updateOne(req.body, {runValidators: true});
 
-        helper.handleSuccess('resource updated successfully');
+        return helper.handleSuccess('resource updated successfully', res);
     } catch (err) {
         helper.handleThrownErrors(err, res);
     }
@@ -57,7 +57,7 @@ exports.deleteTransaction = async (req, res, next) => {
 
         await transaction.remove();
 
-        helper.handleSuccess('resource deleted successfully');
+        return helper.handleSuccess('resource deleted successfully', res);
     } catch (err) {
         helper.handleThrownErrors(err, res);
     }
