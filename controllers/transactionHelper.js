@@ -49,8 +49,9 @@ function handleThrownErrors(err, res) {
         return res.status(400).json({ success: false, error: messages});
     } else if (err.name === 'CastError') {
         return res.status(400).json({ success: false, error: err.message});
+    } else {
+        return res.status(500).json({success: false, error: `Server Error: ${err.toLocaleString()}`});
     }
-    return res.status(500).json({ success: false, error: `Server Error: ${err.toLocaleString()}`});
 }
 
 function handleNotFound(res) {

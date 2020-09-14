@@ -6,12 +6,12 @@ exports.getTransaction = async (req, res, next) => {
         const transaction = await helper.getTransactionById(req.params.uid);
 
         if (!transaction) {
-            helper.handleNotFound(res);
+            return helper.handleNotFound(res);
         }
 
         return helper.handleSuccess(transaction, res);
     } catch (err) {
-       helper.handleThrownErrors(err, res);
+       return helper.handleThrownErrors(err, res);
     }
 };
 
@@ -27,7 +27,7 @@ exports.createTransaction = async (req, res, next) => {
 
         return helper.handleSuccess({id: newTransaction.id}, res);
     } catch (err) {
-        helper.handleThrownErrors(err, res);
+        return helper.handleThrownErrors(err, res);
     }
 };
 
@@ -36,14 +36,14 @@ exports.updateTransaction = async (req, res, next) => {
         const transaction = await helper.getTransactionById(req.body.id);
 
         if (!transaction) {
-           helper.handleNotFound(res);
+           return helper.handleNotFound(res);
         }
 
         await transaction.updateOne(req.body, {runValidators: true});
 
         return helper.handleSuccess('resource updated successfully', res);
     } catch (err) {
-        helper.handleThrownErrors(err, res);
+        return helper.handleThrownErrors(err, res);
     }
 };
 
@@ -52,7 +52,7 @@ exports.deleteTransaction = async (req, res, next) => {
         const transaction = await helper.getTransactionById(req.params.uid);
 
         if (!transaction) {
-            helper.handleNotFound(res);
+            return helper.handleNotFound(res);
         }
 
         await transaction.remove();

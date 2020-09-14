@@ -17,12 +17,11 @@ describe('/api/magic', () => {
 
     after(async () => {
         await db.close().catch((err) => process.exit(1));
-        console.log('Closed Mock DB');
     })
     //
     it('should create a new transaction', async () => {
         const res = await request(app).post('/api/magic/').send(testData[0]).catch((err) => assert.fail(err));
-        assert.equal(res.body.success, true);
+        assert.isNotEmpty(res.body.id);
         transactionIds.push(res.body.id);
     });
 
@@ -31,10 +30,35 @@ describe('/api/magic', () => {
         assert.equal(res.body.success, false);
     });
 
-    it('should not create a transaction with missing fields', async () => {
-        const res = await request(app).post('/api/magic/').send({firstName: 'John', lastName: 'Smith'}).catch((err) => assert.fail());
+    it('should not create a transaction with invalid Email', async () => {
+        const res = await request(app).post('/api/magic/').send({...testData[1], email: 'foo'}).catch((err) => assert.fail());
+        assert.equal(res.body.error[0], 'Email Address in not in a valid format');
         assert.equal(res.body.success, false);
-    })
+    });
+
+    it('should not create a transaction with invalid phone number', async () => {
+        const res = await request(app).post('/api/magic/').send({...testData[1], phone: '123'}).catch((err) => assert.fail());
+        assert.equal(res.body.error[0], 'Phone number is not in the valid format ###-###-####');
+        assert.equal(res.body.success, false);
+    });
+
+    it('should not create a transaction with invalid expiration date', async () => {
+        const res = await request(app).post('/api/magic/').send({...testData[1], payment: {ccNum: '123', exp: '14444'}}).catch((err) => assert.fail());
+        assert.equal(res.body.error[0], 'Expiration Date is not in the valid format MM/YY');
+        assert.equal(res.body.success, false);
+    });
+
+    it('should not create a transaction with quantity less than 1', async () => {
+        const res = await request(app).post('/api/magic/').send({...testData[1], quantity: 0}).catch((err) => assert.fail());
+        assert.equal(res.body.error[0], 'Quantity is less than the minimum allowed value (1)');
+        assert.equal(res.body.success, false);
+    });
+
+    it('should not create a transaction with quantity greater than 3', async () => {
+        const res = await request(app).post('/api/magic/').send({...testData[1], quantity: 4}).catch((err) => assert.fail());
+        assert.equal(res.body.error[0], 'Quantity is more than the maximum allowed value (3)');
+        assert.equal(res.body.success, false);
+    });
 
     it('should get the transaction', async () => {
         const res = await request(app).get(`/api/magic/${transactionIds[0]}`).catch(() => assert.fail());
