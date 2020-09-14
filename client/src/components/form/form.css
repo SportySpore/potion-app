@@ -106,3 +106,17 @@ form {
         border-width: 0 0 1px 0;
     }
 }
+
+@media (max-width: 767px) {
+    .form-input-1-4  {
+        width: 100%;
+        border-width: 0 0 1px 0;
+    }
+}
+
+@media (max-width: 767px) {
+    .form-input-2-4  {
+        width: 100%;
+        border-width: 0 0 1px 0;
+    }
+}
