@@ -3,11 +3,13 @@ const mongoose = require('mongoose');
 const TransactionSchema = new mongoose.Schema({
     firstName: {
         type: String,
-        required: [true, 'Please add a First Name']
+        required: [true, 'Please add a First Name'],
+        match: [/^[a-zA-Z\s]*$/, 'Invalid First Name format: Letters only']
     },
     lastName: {
         type: String,
-        required: [true, 'Please add a Last Name']
+        required: [true, 'Please add a Last Name'],
+        match: [/^[a-zA-Z\s]*$/, 'Invalid Last Name format: Letters only']
     },
     email: {
         type: String,
@@ -49,7 +51,7 @@ const TransactionSchema = new mongoose.Schema({
         exp: {
             type: String,
             required: [true, 'Please add an Expiration Date in MM/YY format'],
-            match: [/(?:0[1-9]|1[0-2])\/(?:[0-2][0-9]|3[0-1])/, 'Expiration Date is not in the valid format MM/YY']
+            match: [/(?:0[1-9]|1[0-2])\/[0-9]{2}/, 'Expiration Date is not in the valid format MM/YY']
         },
     },
     quantity: {

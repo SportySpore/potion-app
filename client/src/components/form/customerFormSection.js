@@ -5,12 +5,12 @@ export const CustomerFormSection = ({ register, errors }) => {
         <div className='section-right-wrap'>
             <div className='form-input-1-2'>
                 <label>First name</label>
-                <input type="text" name="firstName" ref={register({ required: true, pattern:"[a-zA-Z]*"})}/>
+                <input type="text" name="firstName" ref={register({ required: true, pattern:/^[a-zA-Z\s]*$/})}/>
                 {errors.firstName && <p className='error'>Enter a valid First Name</p>}
             </div>
             <div className='form-input-1-2'>
                 <label>Last name</label>
-                <input type="text" name="lastName" ref={register({ required: true, pattern:"[a-zA-Z]*"})}/>
+                <input type="text" name="lastName" ref={register({ required: true, pattern:/^[a-zA-Z\s]*$/})}/>
                 {errors.lastName && <p className='error'>Enter a valid Last Name</p>}
             </div>
             <div className='form-input-1-2'>

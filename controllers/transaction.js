@@ -24,8 +24,9 @@ exports.createTransaction = async (req, res, next) => {
         }
 
         const newTransaction = await Transaction.create(req.body);
+        const id = {id: newTransaction.id};
 
-        return helper.handleSuccess({id: newTransaction.id}, res);
+        return helper.handleSuccess(id, res);
     } catch (err) {
         return helper.handleThrownErrors(err, res);
     }
