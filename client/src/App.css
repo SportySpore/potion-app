@@ -72,6 +72,18 @@ input {
     font-family: Monaco;
 }
 
+select {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid #000000;
+    padding: 10px 15px;
+    font-size: 14px;
+    text-align-last: center;
+    font-family: Monaco;
+}
+
 label {
     line-height: 2;
     display: block;

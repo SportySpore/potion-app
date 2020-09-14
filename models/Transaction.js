@@ -30,7 +30,13 @@ const TransactionSchema = new mongoose.Schema({
         },
         state: {
             type: String,
-            required: [true, 'Please add a State']
+            required: [true, 'Please add a State'],
+            validate: {
+                validator: function (v) {
+                    return states.includes(v.toUpperCase());
+                },
+                message: "Invalid Abbreviated State"
+            }
         },
         zip: {
             type: String,
@@ -46,7 +52,9 @@ const TransactionSchema = new mongoose.Schema({
     payment: {
         ccNum: {
             type: String,
-            required: [true, 'Please add a Credit Card Number']
+            required: [true, 'Please add a Credit Card Number'],
+            minLength: [13, "The Credit Card Number is too short"],
+            match: [/^\d+(?:-\d+)*$/, 'Credit Card Number is not in the valid format: Digits only']
         },
         exp: {
             type: String,
@@ -74,6 +82,11 @@ const TransactionSchema = new mongoose.Schema({
     }
 
 });
+
+
+const states = ['AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FM', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MH', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PW', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY'];
+
+
 
 module.exports = mongoose.model('Transaction', TransactionSchema);
 

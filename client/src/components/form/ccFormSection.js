@@ -5,7 +5,7 @@ export const CCFormSection = ({ register, errors }) => {
         <div className='section-right-wrap'>
             <div className='form-input-1-2'>
                 <label>C.C Number</label>
-                <input type="text" name="payment.ccNum" ref={register({ required: true })}/>
+                <input type="text" name="payment.ccNum" ref={register({required: true, minLength: 13, pattern: /^\d+(?:-\d+)*$/ })}/>
                 {errors.payment && errors.payment.ccNum && <p className='error'>Enter a valid Credit Card Number</p>}
             </div>
 
